@@ -57,72 +57,29 @@ export async function confirmSignUp(username, code) {
   });
 }
 
-// export async function signUp(username, email, password) {
-//   const attributeList = [];
+export function signIn(username, password) {
+  var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+    Username: username,
+    Password: password,
+  });
 
-//   const dataEmail = {
-//     Name: "email",
-//     Value: email,
-//   };
+  var userData = {
+    Username: username,
+    Pool: userPool,
+  };
 
-//   const attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(
-//     dataEmail
-//   );
-//   attributeList.push(attributeEmail);
+  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
-//   userPool.signUp(
-//     username,
-//     password,
-//     attributeList,
-//     null,
-//     function (err, result) {
-//       if (err) {
-//         alert(err.message || JSON.stringify(err));
-//         return;
-//       }
-//       const cognitoUser = result.user;
-//       console.log("user name is " + cognitoUser.getUsername());
-//       alert("Check your email for the verification link.");
-//     }
-//   );
-// }
-
-// export function signIn(username, password) {
-//     return new Promise((resolve, reject) => {
-//         const authenticationDetails = new AuthenticationDetails({
-//             Username: username,
-//             Password: password
-//         });
-
-//         const cognitoUser = new CognitoUser({
-//             Username: username,
-//             Pool: userPool
-//         });
-
-//         cognitoUser.authenticateUser(authenticationDetails, {
-//             onSuccess: (result) => {
-//                 resolve(result);
-//             },
-//             onFailure: (err) => {
-//                 reject(err);
-//             }
-//         });
-//     });
-// }
-
-// export function confirmSignUp(username, code) {
-//     return new Promise((resolve, reject) => {
-//         const cognitoUser = new CognitoUser({
-//             Username: username,
-//             Pool: userPool
-//         });
-
-//         cognitoUser.confirmRegistration(code, true, function(err, result) {
-//             if (err) {
-//                 reject(err);
-//             } else {
-//                 resolve(result); // "SUCCESS", usually
-//             }
-//         });
-//     });
-// }
+  return new Promise((resolve, reject) => {
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: function (result) {
+        console.log("Access Token: " + result.getAccessToken().getJwtToken());
+        resolve(result); // Optionally resolve with full result if needed elsewhere
+      },
+      onFailure: function (err) {
+        console.error(err.message || JSON.stringify(err));
+        reject(err); // Reject the promise with the error
+      },
+    });
+  });
+}
