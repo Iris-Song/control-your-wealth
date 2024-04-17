@@ -170,7 +170,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const signUpForm = document.getElementById("signUpForm");
 
-        signUpForm.addEventListener("submit", function (event) {
+        signUpForm.addEventListener("submit", async function (event) {
           event.preventDefault();
           const email = document.getElementById("email").value;
           const username = document.getElementById("username").value;
@@ -184,19 +184,19 @@
           }
 
           // Call the signUp function
-          signUp(username, email, password);
+          await signUp(username, email, password);
           const confirmationDiv = document.getElementById("confirmationDiv");
           confirmationDiv.style.visibility = "visible";
         });
 
         const confirmForm = document.getElementById("confirmSignUpForm");
 
-        confirmForm.addEventListener("submit", function (event) {
+        confirmForm.addEventListener("submit", async function (event) {
           event.preventDefault();
           const username = document.getElementById("username").value;
           const code = document.getElementById("confirmationCode").value;
 
-          confirmSignUp(username, code);
+          await confirmSignUp(username, code);
         });
       });
     </script>
