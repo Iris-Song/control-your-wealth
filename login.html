@@ -198,13 +198,15 @@
             const result = await signIn(username, password);
 
             const idToken = result.getIdToken().getJwtToken();
-            const accessToken = result.getAccessToken().getJwtToken();
-            const refreshToken = result.getRefreshToken().getToken();
+            // const accessToken = result.getAccessToken().getJwtToken();
+            // const refreshToken = result.getRefreshToken().getToken();
 
             sessionStorage.setItem("idToken", idToken);
-            sessionStorage.setItem("accessToken", accessToken);
-            sessionStorage.setItem("refreshToken", refreshToken);
+            sessionStorage.setItem("username", username);
+            // sessionStorage.setItem("accessToken", accessToken);
+            // sessionStorage.setItem("refreshToken", refreshToken);
             alert("Login successful!");
+            window.location.href = "/index.html";
           } catch (error) {
             alert("Login failed: " + error.message);
           }

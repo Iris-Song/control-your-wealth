@@ -73,7 +73,7 @@ export function signIn(username, password) {
   return new Promise((resolve, reject) => {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
-        console.log("Access Token: " + result.getAccessToken().getJwtToken());
+        // console.log("Access Token: " + result.getAccessToken().getJwtToken());
         resolve(result); // Optionally resolve with full result if needed elsewhere
       },
       onFailure: function (err) {
