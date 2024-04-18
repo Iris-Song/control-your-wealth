@@ -1,6 +1,7 @@
 // cognito.js
 // import "https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js";
 // import "https://sdk.amazonaws.com/js/aws-sdk-2.1030.0.min.js";
+import config from "./config.js";
 
 AWS.config.region = "us-east-1"; // Your Cognito Region
 
