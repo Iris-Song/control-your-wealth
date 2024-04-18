@@ -84,3 +84,5 @@ export function signIn(username, password) {
     });
   });
 }
+
+// TODO: add logout function
