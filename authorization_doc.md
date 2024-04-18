@@ -1,1 +1,30 @@
-没写完
+# How to access APIs with authorized status
+
+## Frontend side
+Example at [test.html](./test.html)
+1. Obtain ```idToken``` from ```sessionStorage```
+```js
+const idToken = sessionStorage.getItem("idToken");
+```
+2. Add ```idToken``` into request header: Authorization
+```js
+axios.get(testUrl, {
+    headers: { Authorization: `Bearer ${idToken}` },
+    params: {
+        value1: value1,
+    },
+}).then().catch();
+```
+
+## Server side
+Example at lambda: "test-lambda"  
+1. Getting username:
+```py
+username = event["requestContext"]["authorizer"]["claims"]["cognito:username"]
+```
+2. Getting user email:
+```py
+email = event["requestContext"]["authorizer"]["claims"]["email"]
+```
+3. Getting request params, body, ...
+See Cloud Watch Log Group: /aws/lambda/test-lambda for event format  
