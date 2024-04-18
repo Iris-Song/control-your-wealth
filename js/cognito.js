@@ -58,7 +58,7 @@ export async function confirmSignUp(username, code) {
   });
 }
 
-export function signIn(username, password) {
+export async function signIn(username, password) {
   var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
     Username: username,
     Password: password,
@@ -85,4 +85,36 @@ export function signIn(username, password) {
   });
 }
 
+export async function signOut() {
+  const username = sessionStorage.getItem("username");
+  if (username) {
+    var userData = {
+      Username: username,
+      Pool: userPool,
+    };
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    cognitoUser.getSession((err, result) => {
+      if (err) {
+        console.error(err.message);
+        return;
+      }
+      if (result) {
+        cognitoUser.globalSignOut({
+          onSuccess: function (result) {
+            alert("Successfully Logged Out!");
+            sessionStorage.removeItem("username");
+            sessionStorage.removeItem("idToken");
+            sessionStorage.removeItem("accessToken");
+            window.location.href = "/login.html";
+          },
+          onFailure: function (err) {
+            console.error(err.message || JSON.stringify(err));
+          },
+        });
+      }
+    });
+  } else {
+    alert("No user currently...");
+  }
+}
 // TODO: add logout function

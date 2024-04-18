@@ -67,6 +67,9 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1030.0.min.js"></script>
+    <script src="https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
   </head>
 
   <body>
@@ -224,7 +227,7 @@
                                 >
                               </li>
                               <li>
-                                <a href="./login.html"
+                                <a href="#" id="logOutButton"
                                   ><span
                                     class="edu-icon edu-locked author-log-ic"
                                   ></span
@@ -436,5 +439,13 @@
     <script src="js/tawk-chat.js"></script>
 
     <script src="js/displayName.js"></script>
+
+    <script type="module">
+      import { signOut } from "./js/cognito.js";
+      const logOutButton = document.getElementById("logOutButton");
+      logOutButton.addEventListener("click", async () => {
+        const result = await signOut();
+      });
+    </script>
   </body>
 </html>

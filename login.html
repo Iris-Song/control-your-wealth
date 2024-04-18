@@ -199,12 +199,12 @@
             const result = await signIn(username, password);
 
             const idToken = result.getIdToken().getJwtToken();
-            // const accessToken = result.getAccessToken().getJwtToken();
+            const accessToken = result.getAccessToken().getJwtToken();
             // const refreshToken = result.getRefreshToken().getToken();
 
             sessionStorage.setItem("idToken", idToken);
             sessionStorage.setItem("username", username);
-            // sessionStorage.setItem("accessToken", accessToken);
+            sessionStorage.setItem("accessToken", accessToken);
             // sessionStorage.setItem("refreshToken", refreshToken);
             alert("Login successful!");
             window.location.href = "/index.html";
