@@ -31,8 +31,8 @@ See Cloud Watch Log Group: /aws/lambda/test-lambda for event format
 
 ## Api Gateway
 Example at resource: /test, METHOD = GET  
-1. Protect resource and method with Cognito
-Goto ```/your-resource/your-method``` in API Gateway Console  
-Goto ```Method request settings -> Edit```  
-Set ```Authorization``` to ```user-auth-safe```
+1. Protect resource and method with Cognito  
+   1. Goto ```/your-resource/your-method``` in API Gateway Console  
+   2. Goto ```Method request settings -> Edit```  
+   3. Set ```Authorization``` to ```user-auth-safe```
 2. Don't forget to enable CORS
