@@ -5,5 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     display.textContent = username;
   } else {
     display.textContent = "Please Log In";
+    window.location.href = "./login.html";
   }
 });
