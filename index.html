@@ -251,10 +251,12 @@
           </div>
         </div>
       </div>
+      
       <div class="analytics-sparkle-area">
         <div class="container-fluid">
-          This month
-          <div class="row">
+          <h3 style="margin-left: 20px;">This month total:</h3>
+          <h3 style="margin-left: 20px;" id = "total-amount">Not Available</h3>
+          <div class="row1">
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
                 <div class="analytics-rounded-content">
@@ -295,6 +297,21 @@
                   <h2 id="trans-amount">Not Available</h2>
                   <div class="text-center">
                     <div id="sparkline-trans"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row2" style="margin-top: 20px;">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+              <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
+                <div class="analytics-rounded-content">
+                  <h5>Others</h5>
+                  <h2 id="others-amount">Not Available</h2>
+                  <div class="text-center">
+                    <div id="sparkline-others"></div>
                   </div>
                 </div>
               </div>
@@ -362,12 +379,11 @@
     <!-- main JS
 		============================================ -->
     <script src="js/main.js"></script>
-    <!-- tawk chat JS
-		============================================ -->
-    <script src="js/tawk-chat.js"></script>
+
 
     <script src="js/displayName.js"></script>
     <script src="js/this-month-report.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script type="module">
       import { signOut } from "./js/cognito.js";

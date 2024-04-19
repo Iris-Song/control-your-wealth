@@ -11,3 +11,6 @@
 3. Open html using Live Server
 
     e.g. Extenstion `ritwickdey.LiveServer` in VS code
+
+## predefined catagory
+`Food`,`Clothing`,`Living`,`Transportation`, `Others`
