@@ -12,5 +12,5 @@
 
     e.g. Extenstion `ritwickdey.LiveServer` in VS code
 
-## predefined catagory
+## predefined category
 `Food`,`Clothing`,`Living`,`Transportation`, `Others`
