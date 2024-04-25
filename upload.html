@@ -260,45 +260,33 @@
           </div>
         </div>
       </div>
+      
       <!-- Multi Upload Start-->
       <div class="multi-uploaded-area mg-b-15">
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div class="alert-title dropzone-custom-sys">
-                <h2>Drag and Drop Bill uploads System</h2>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div class="dropzone-pro mg-tb-30">
-                <div id="dropzone1" class="multi-uploader-cs">
-                  <form
-                    action="/upload"
-                    class="dropzone dropzone-custom needsclick"
-                    id="demo1-upload"
-                  >
-                    <div class="dz-message needsclick download-custom">
-                      <i class="fa fa-download" aria-hidden="true"></i>
-                      <h2>Drop files here or click to upload.</h2>
-                    </div>
-                  </form>
+              <form class="dropzone dropzone-custom needsclick" id="demo-upload">
+                <div class="dz-message needsclick download-custom">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <h2>Drop files here or click to upload.</h2>
                 </div>
-              </div>
+              </form>
+              <!-- Category Selection -->
               <div class="form-group">
-                <select name="catagory" class="form-control">
-                  <option value="none" selected="" disabled="">
-                    Select catagory
-                  </option>
-                  <option value="0">Food</option>
-                  <option value="1">Clothes</option>
-                  <option value="2">Travel</option>
+                <select id="categorySelect" class="form-control">
+                    <option value="none" selected="" disabled="">Select category</option>
+                    <option value="Food">Food</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Living">Living</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Others">Others</option>
                 </select>
-              </div>
-              <button class="btn btn-success btn-block">Upload</button>
-              <button class="btn btn-default btn-block">Cancel</button>
             </div>
+            <!-- Upload Button -->
+            <button id="submitUpload" class="btn btn-success btn-block" disabled>Upload</button>
+            <button class="btn btn-default btn-block">Cancel</button>
+
           </div>
         </div>
       </div>
@@ -362,5 +350,74 @@
         const result = await signOut();
       });
     </script>
+
+    <!-- Dropzone Configuration and Upload Handling Script -->
+    <script>
+      // Ensure Dropzone doesn't try to auto discover this element:
+      Dropzone.autoDiscover = false;
+      
+      // Function to initialize the Dropzone element
+      function initDropzone() {
+          // const dropzoneElement = document.querySelector('.dropzone');
+      
+          // Instantiate a new Dropzone
+          const myDropzone = new Dropzone('#demo-upload', {
+              url: 'https://gk8v06fere.execute-api.us-east-1.amazonaws.com', // Set your API Gateway endpoint here
+              autoProcessQueue: false,  // Do not automatically process files
+              paramName: "file",  // The name that will be used to transfer the file
+              maxFiles: 1,  // Allow only one file to be uploaded
+              acceptedFiles: 'image/jpeg,image/png,image/gif', // Restrict to image files only
+              
+              init: function() {
+                  // Capture the category select element and upload button
+                  const categorySelect = document.getElementById('categorySelect');
+                  const uploadButton = document.getElementById('submitUpload');
+                  // Listen to the 'addedfile' event and enable the upload button when a file is added
+                  this.on('addedfile', function() {
+                      document.getElementById('submitUpload').disabled = !this.files.length || document.getElementById('categorySelect').value === 'none';
+                  });
+      
+                  // Listen to the 'removedfile' event and disable the upload button if no file is queued
+                  this.on('removedfile', function() {
+                      document.getElementById('submitUpload').disabled = !this.files.length || document.getElementById('categorySelect').value === 'none';
+                  });
+      
+                  // Event listener for the category selection change
+                  categorySelect.addEventListener('change', () => {
+                      uploadButton.disabled = !this.files.length || categorySelect.value === 'none';
+                  });
+
+                  // Event listener for the upload button click
+                  uploadButton.addEventListener('click', () => {
+                      if (this.files.length && categorySelect.value !== 'none') {
+                          this.processQueue();  // Process the upload
+                      } else {
+                          alert('Please select a file and a category.');
+                      }
+                  });
+
+                  // Append the category to the form data when the file is being sent
+                  this.on('sending', (file, xhr, formData) => {
+                      formData.append('category', categorySelect.value);
+                  });
+
+                  // Handle the response from the server
+                  this.on('success', (file, response) => {
+                      alert('Upload successful!');
+                      console.log(response); // Log the response for debugging
+                  });
+
+                  this.on('error', (file, response) => {
+                      alert('Upload failed!');
+                      console.error(response); // Log the error for debugging
+                  });
+              }
+          });
+      }
+
+      // Initialize the Dropzone when the page is ready
+      window.addEventListener('DOMContentLoaded', initDropzone);
+    </script>
+
   </body>
 </html>
