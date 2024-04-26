@@ -358,7 +358,16 @@
       
       // Function to initialize the Dropzone element
       function initDropzone() {
-          // const dropzoneElement = document.querySelector('.dropzone');
+          // Retrieve the idToken from sessionStorage
+          const idToken = sessionStorage.getItem("idToken");
+
+          // Check if the idToken exists
+          if (!idToken) {
+              alert("You are not logged in. Please login to upload files.");
+              return; // Stop initialization if no token is found
+          }
+
+          //  st dropzoneElement = document.querySelector('.dropzone');
       
           // Instantiate a new Dropzone
           const myDropzone = new Dropzone('#demo-upload', {
@@ -367,6 +376,9 @@
               paramName: "file",  // The name that will be used to transfer the file
               maxFiles: 1,  // Allow only one file to be uploaded
               acceptedFiles: 'image/jpeg,image/png,image/gif', // Restrict to image files only
+              headers: {
+                'Authorization': `Bearer ${idToken}` // Add the Authorization header with the idToken
+              },
               
               init: function() {
                   // Capture the category select element and upload button
@@ -408,8 +420,16 @@
                   });
 
                   this.on('error', (file, response) => {
-                      alert('Upload failed!');
-                      console.error(response); // Log the error for debugging
+                      // It's useful to check if the response is an object and log appropriately
+                      console.error('Upload failed with response: ', response);
+                      // Potentially parse response if it's JSON/string to provide a more user-friendly error message
+                      if (typeof response === 'string' || response instanceof String) {
+                          alert('Upload failed: ' + response);
+                      } else if (response && response.message) {
+                          alert('Upload failed: ' + response.message);
+                      } else {
+                          alert('Upload failed!');
+                      }
                   });
               }
           });
