@@ -358,8 +358,9 @@
       
       // Function to initialize the Dropzone element
       function initDropzone() {
-          // Retrieve the idToken from sessionStorage
+          // Retrieve the idToken and username from sessionStorage
           const idToken = sessionStorage.getItem("idToken");
+          const username = sessionStorage.getItem("username");  // Make sure the username is stored in session storage
 
           // Check if the idToken exists
           if (!idToken) {
@@ -367,23 +368,22 @@
               return; // Stop initialization if no token is found
           }
 
-          //  st dropzoneElement = document.querySelector('.dropzone');
-      
           // Instantiate a new Dropzone
           const myDropzone = new Dropzone('#demo-upload', {
-              url: 'https://gk8v06fere.execute-api.us-east-1.amazonaws.com', // Set your API Gateway endpoint here
+              url: 'https://gk8v06fere.execute-api.us-east-1.amazonaws.com/dev/upload', // Set your API Gateway endpoint here
               autoProcessQueue: false,  // Do not automatically process files
               paramName: "file",  // The name that will be used to transfer the file
               maxFiles: 1,  // Allow only one file to be uploaded
-              acceptedFiles: 'image/jpeg,image/png,image/gif', // Restrict to image files only
+              acceptedFiles: 'image/jpeg,image/png', // Restrict to image files only
               headers: {
-                'Authorization': `Bearer ${idToken}` // Add the Authorization header with the idToken
+                Authorization: `Bearer ${idToken}` // Add the Authorization header with the idToken
               },
               
               init: function() {
                   // Capture the category select element and upload button
                   const categorySelect = document.getElementById('categorySelect');
                   const uploadButton = document.getElementById('submitUpload');
+
                   // Listen to the 'addedfile' event and enable the upload button when a file is added
                   this.on('addedfile', function() {
                       document.getElementById('submitUpload').disabled = !this.files.length || document.getElementById('categorySelect').value === 'none';
@@ -391,7 +391,7 @@
       
                   // Listen to the 'removedfile' event and disable the upload button if no file is queued
                   this.on('removedfile', function() {
-                      document.getElementById('submitUpload').disabled = !this.files.length || document.getElementById('categorySelect').value === 'none';
+                      document.getElementById('submitUpload').disabled = !this.files.length || categorySelect.value === 'none';
                   });
       
                   // Event listener for the category selection change
@@ -408,9 +408,31 @@
                       }
                   });
 
-                  // Append the category to the form data when the file is being sent
-                  this.on('sending', (file, xhr, formData) => {
-                      formData.append('category', categorySelect.value);
+                  // Convert file to Base64 and send it to API Gateway
+                  this.on('sending', (file, xhr) => {
+                      const reader = new FileReader();
+
+                      reader.onload = () => {
+                          const base64Image = reader.result.split(',')[1]; // Remove data URL prefix
+                          
+                          const payload = {
+                              body: base64Image,
+                              isBase64Encoded: true,
+                              username: username,  // Include the username
+                              category: categorySelect.value // Include the selected category
+                          };
+
+                          // Reopen the XMLHttpRequest object for a binary payload
+                          xhr.open('POST', 'https://gk8v06fere.execute-api.us-east-1.amazonaws.com/dev/upload', true);
+
+                          xhr.setRequestHeader('Content-Type', 'application/json');
+                          xhr.setRequestHeader('Authorization', `Bearer ${idToken}`);
+
+                          // Send payload as JSON
+                          xhr.send(JSON.stringify(payload));
+                      };
+
+                      reader.readAsDataURL(file);
                   });
 
                   // Handle the response from the server
@@ -438,6 +460,7 @@
       // Initialize the Dropzone when the page is ready
       window.addEventListener('DOMContentLoaded', initDropzone);
     </script>
+
 
   </body>
 </html>
