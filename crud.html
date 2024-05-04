@@ -261,74 +261,26 @@
         </div>
       </div>
       
-      <div class="analytics-sparkle-area">
-        <div class="container-fluid">
-          <h3 style="margin-left: 20px;">This month total:</h3>
-          <h3 style="margin-left: 20px;" id = "total-amount">Not Available</h3>
-          <div class="row1">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-              <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
-                <div class="analytics-rounded-content">
-                  <h5>Food</h5>
-                  <h2 id="food-amount">Not Available</h2>
-                  <div class="text-center">
-                    <div id="sparkline-food"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-              <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
-                <div class="analytics-rounded-content">
-                  <h5>Clothing</h5>
-                  <h2 id="clothing-amount">Not Available</h2>
-                  <div class="text-center">
-                    <div id="sparkline-clothing"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-              <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
-                <div class="analytics-rounded-content">
-                  <h5>Living</h5>
-                  <h2 id="living-amount">Not Available</h2>
-                  <div class="text-center">
-                    <div id="sparkline-living"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-              <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
-                <div class="analytics-rounded-content">
-                  <h5>Transportation</h5>
-                  <h2 id="trans-amount">Not Available</h2>
-                  <div class="text-center">
-                    <div id="sparkline-trans"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="container-fluid">
-          <div class="row2" style="margin-top: 20px;">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-              <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
-                <div class="analytics-rounded-content">
-                  <h5>Others</h5>
-                  <h2 id="others-amount">Not Available</h2>
-                  <div class="text-center">
-                    <div id="sparkline-others"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Category</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="categoryTableBody">
+                <!-- Categories and amounts will be dynamically inserted here -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-    </div>
+      
+    
 
     <!-- jquery
 		============================================ -->
@@ -391,7 +343,7 @@
 
 
     <script src="js/displayName.js"></script>
-    <script src="js/this-month-report.js"></script>
+    <script src="js/crud.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script type="module">
