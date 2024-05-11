@@ -98,6 +98,15 @@
                 >
               </li>
               <li>
+                <a title="Landing Page" href="crud.html" aria-expanded="false"
+                  ><span
+                    class="educate-icon educate-info icon-wrap sub-icon-mg"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="mini-click-non">Edit</span></a
+                >
+              </li>
+              <li>
                 <a title="Upload Page" href="upload.html" aria-expanded="false"
                   ><span
                     class="educate-icon educate-landing icon-wrap sub-icon-mg"
@@ -116,15 +125,6 @@
                     aria-hidden="true"
                   ></span>
                   <span class="mini-click-non">Analytics</span></a
-                >
-              </li>
-              <li>
-                <a title="Export Page" href="export.html" aria-expanded="false"
-                  ><span
-                    class="educate-icon educate-info icon-wrap sub-icon-mg"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="mini-click-non">Export</span></a
                 >
               </li>
             </ul>
@@ -245,30 +245,28 @@
       <!-- income order visit user Start -->
       <div class="analytics-sparkle-area">
         <div class="container-fluid">
-          <h3 style="margin-left: 20px;">Select Month & Year:</h3>
-          <form class="form-group" style="margin-left: 20px;" id="formAnalytic">
+          <h3 style="margin-left: 20px">Select Month & Year:</h3>
+          <form class="form-group" style="margin-left: 20px" id="formAnalytic">
             <select id="form-month">
-              <option value="" selected="" disabled="">
-                Select Month
-              </option>
-              <option value=0>1</option>
-              <option value=1>2</option>
-              <option value=2>3</option>
-              <option value=3>4</option>
-              <option value=4>5</option>
-              <option value=5>6</option>
-              <option value=6>7</option>
-              <option value=7>8</option>
-              <option value=8>9</option>
-              <option value=9>10</option>
-              <option value=10>11</option>
-              <option value=11>12</option>
+              <option value="" selected="" disabled="">Select Month</option>
+              <option value="0">1</option>
+              <option value="1">2</option>
+              <option value="2">3</option>
+              <option value="3">4</option>
+              <option value="4">5</option>
+              <option value="5">6</option>
+              <option value="6">7</option>
+              <option value="7">8</option>
+              <option value="8">9</option>
+              <option value="9">10</option>
+              <option value="10">11</option>
+              <option value="11">12</option>
             </select>
-            <input type="number" placeholder="year, eg.2024" id="form-year"/>  
+            <input type="number" placeholder="year, eg.2024" id="form-year" />
             <button type="submit" id="form-button">Submit</button>
           </form>
-          <h3 style="margin-left: 20px;">Total amount:</h3>
-          <h3 style="margin-left: 20px;" id = "total-amount">Not Available</h3>
+          <h3 style="margin-left: 20px">Total amount:</h3>
+          <h3 style="margin-left: 20px" id="total-amount">Not Available</h3>
           <div class="row1">
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
@@ -317,7 +315,7 @@
           </div>
         </div>
         <div class="container-fluid">
-          <div class="row2" style="margin-top: 20px;">
+          <div class="row2" style="margin-top: 20px">
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
               <div class="analytics-rounded res-tablet-mg-t-30 dk-res-t-pro-30">
                 <div class="analytics-rounded-content">
@@ -404,6 +402,5 @@
         const result = await signOut();
       });
     </script>
-    
   </body>
 </html>
